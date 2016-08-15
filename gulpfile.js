@@ -74,6 +74,7 @@ options.paths = {
     js: options.srcPath + '_js/',
     images: options.srcPath + 'images/',
     fonts: options.srcPath + 'fonts/',
+    pages: options.srcPath + 'pages/',
     destCss: options.distPath + 'css/',
     destJs: options.distPath + 'js/',
     destImages: options.distPath + 'images/',
@@ -143,9 +144,9 @@ gulp.task('browser-sync', function () {
 
 // Jade
 gulp.task('pages', function() {
-  gulp.src(options.srcPath + '**/*.jade')
+  gulp.src(options.paths.pages + '*.jade')
     .pipe(jade(
-      {pretty: global.isProd ? false : true}
+      {pretty: gutil.env.type === 'prod' ? false : true}
     ))
     .pipe(gulp.dest(options.distPath))
     .pipe(reload({stream:true}));
@@ -312,6 +313,9 @@ gulp.task('serve', [
         bundler.on('update', function () {
             bundle(bundler); // Re-run bundle on source updates
         });
+
+        // Watch Jade
+        gulp.watch(options.paths.pages + '*.jade', ['pages']);
     }
 );
 
@@ -323,7 +327,7 @@ gulp.task('serve:dist', ['default'], function () {
 gulp.task('build', ['clean'], function () {
     gutil.env.type = 'prod';
     //gulp.start('sass', 'modernizr', 'images', 'svg', 'fonts');
-    gulp.start('sass', 'images', 'svg', 'fonts');
+    gulp.start('sass', 'images', 'svg', 'fonts', 'pages');
 
     var bundler = browserify('./app/src/js/app.js', browserify_config) // Browserify
         .transform(babelify, {presets: ['es2015']}); // Babel tranforms

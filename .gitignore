@@ -2,7 +2,7 @@
 .sass-cache
 node_modules
 bower_components
-assets/dist
-#gulp-config.json
+app/dist
+gulp-config.json
 npm-debug.log
 .idea/*

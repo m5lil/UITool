@@ -6,11 +6,11 @@ Shell
 }
 
 .col1 {
-  @include span(6);
+  @include span(7);
 }
 
 .col2 {
-  @include span(6 last);
+  @include span(5 last);
 }
 
 .col {

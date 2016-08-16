@@ -1,12 +1,15 @@
 'use strict';
 
-import './modules/helpers';
+
 
 // Import jQuery (if you need jquery);
 import $ from 'jquery';
 window.jQuery = $;
 console.log($.fn.jquery);
 
-import start from './modules/router';
+import ScrollReveal from './modules/scrollreveal';
 
-start();
+$(window).on('load', function(){
+	window.sr = ScrollReveal().reveal('.header');
+});
+//
